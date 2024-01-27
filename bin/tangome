@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export RBENV_VERSION=3.3.0
+
+APP_PATH=~/Documents/workspace/tangome
+ruby $APP_PATH/lib/tangome.rb "$@"
