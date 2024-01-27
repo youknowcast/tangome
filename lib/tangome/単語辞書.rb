@@ -15,8 +15,6 @@ class Class単語辞書
     @辞書 = 読込
   end
 
-  attr_accessor :辞書
-
   # editor で開く用に辞書ファイルのパスを返します
   def 直接編集
     CONST_辞書ファイル
@@ -32,7 +30,9 @@ class Class単語辞書
   end
 
   def 検索(単語)
-    辞書.keys.find { _1 == 単語 }
+    結果 = 辞書.keys.find { _1 == 単語 }
+    結果 ||= 辞書.keys.filter { _1.include?(単語) }
+    結果 || ''
   end
 
   def 一覧
@@ -53,7 +53,16 @@ class Class単語辞書
   end
 
   def 表示(単語)
-    puts 単語 ? "#{単語}: #{辞書[単語]}" : '単語が見つかりません'
+    if 単語.empty?
+      puts '単語が見つかりません'
+    elsif 単語.is_a?(String)
+      puts "#{単語}: #{辞書[単語]}"
+    else
+      puts "候補が見つかりました(先頭から 5 件表示します)"
+      単語.take(5).each do |w|
+        puts "#{w}: #{辞書[w]}"
+      end
+    end
   end
 
   private
