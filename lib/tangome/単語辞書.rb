@@ -47,7 +47,7 @@ class Class単語辞書
       説明 = 'TBD' if 説明.empty?
     end
     辞書[単語] = 説明
-    File.open('辞書.toml', 'w+') { |file| file.write(TomlRB.dump(辞書)) }
+    File.open(CONST_辞書ファイル, 'w+') { |file| file.write(TomlRB.dump(辞書)) }
 
     表示(単語)
   end
