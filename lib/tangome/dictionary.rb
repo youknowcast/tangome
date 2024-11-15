@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'toml-rb'
 
 class Dictionary
-  CONST_DICTIONARY_PATH = File.expand_path('../../dictionary.toml', __dir__).freeze
+  CONST_DICTIONARY_PATH = File.expand_path('../../dictionary.toml', __FILE__).freeze
 
   def initialize
     @dictionary = load_dictionary
@@ -52,10 +52,10 @@ class Dictionary
 
   def add_custom_word_or_nothing(word)
     puts "単語を登録しますか？(y/n)"
-    answer = STDIN.gets.chomp
+    answer = STDIN.gets&.chomp
     if answer == 'y'
-      explain = STDIN.gets.chomp
-      if explain
+      explain = STDIN.gets&.chomp
+      if explain != ''
         add(word, explain)
         show(word)
       end
@@ -100,8 +100,8 @@ class Dictionary
   def search_weblio(word)
     url = "https://ejje.weblio.jp/content/#{URI.encode_www_form_component(word)}"
     doc = Nokogiri::HTML(URI.open(url), nil, 'utf-8')
-    text = doc.at_css('#summary .content-explanation')&.text
-    text&.strip || ''
+    text = doc.at_css('#summary .content-explanation').text
+    text.strip
   rescue OpenURI::HTTPError
     ''
   end

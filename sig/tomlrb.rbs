@@ -1,0 +1,6 @@
+module TomlRB
+  # IDE の類推で Integer を返すことになっており，破綻するので上書きする
+  def self.load_file: (String) -> Hash[String, String]
+
+  def self.dump: (Hash[untyped, untyped]) -> String
+end

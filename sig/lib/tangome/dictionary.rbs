@@ -1,0 +1,32 @@
+class Dictionary
+  @dictionary: untyped
+
+  CONST_DICTIONARY_PATH: String
+
+  def initialize: () -> void
+
+  attr_accessor dictionary: Hash[String, String]
+
+  # editor で開く用に辞書ファイルのパスを返します
+  def dictionary_path: () -> String
+
+  def search: (String word) -> void
+
+  def list_all: () -> void
+
+  def add: (String word, ?String? explain) -> void
+
+  def add_custom_word_or_nothing: (String word) -> void
+
+  def show: (String word) -> void
+
+  private
+
+  def load_dictionary: () -> Hash[String, String]
+
+  def save_dictionary: () -> void
+
+  def search_local: (String word) -> (String | Array[String])
+
+  def search_weblio: (String word) -> String
+end

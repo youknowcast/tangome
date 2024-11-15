@@ -1,0 +1,5 @@
+module OpenURI
+  class HTTPError < StandardError
+    def message: () -> String
+  end
+end
