@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'toml-rb'
 
 class Dictionary
-  CONST_DICTIONARY_PATH = File.expand_path('../../dictionary.toml', __FILE__).freeze
+  CONST_DICTIONARY_PATH = File.expand_path('../../dictionary.toml', __dir__ || __FILE__).freeze
 
   def initialize
     @dictionary = load_dictionary
