@@ -53,8 +53,8 @@ class Dictionary
   def add_custom_word_or_nothing(word)
     puts "単語を登録しますか？(y/n)"
     answer = STDIN.gets&.chomp
-    if answer == 'y'
-      explain = STDIN.gets&.chomp
+    if answer.downcase == 'y'
+      explain = STDIN.gets
       if explain != ''
         add(word, explain)
         show(word)
@@ -100,8 +100,8 @@ class Dictionary
   def search_weblio(word)
     url = "https://ejje.weblio.jp/content/#{URI.encode_www_form_component(word)}"
     doc = Nokogiri::HTML(URI.open(url), nil, 'utf-8')
-    text = doc.at_css('#summary .content-explanation').text
-    text.strip
+    text = doc.at_css('#summary .content-explanation')&.text
+    text&.strip || ''
   rescue OpenURI::HTTPError
     ''
   end
